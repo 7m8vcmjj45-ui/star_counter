@@ -17,20 +17,20 @@
 
   th { font-size: 13px; font-weight: 800; color:#333; }
 
-  /* ✅ 主菜/副菜の文字が折り返されない */
+  /* ✅ 主菜/副菜の文字が折り返されない（幅を少し縮めてボタン幅を確保） */
   .rowlbl {
     text-align: left;
     font-weight: 900;
     white-space: nowrap;
-    width: 84px;          /* 左ラベル列の幅固定（お好みで調整OK） */
+    width: 72px;          /* ← 84px → 72px */
   }
 
   /* 星の列と合計列も幅固定（端末に合わせて自動で均等配分される） */
-  .starcol, .sumcol { width: calc((100% - 84px) / 6); }
+  .starcol, .sumcol { width: calc((100% - 72px) / 6); }
 
   button.cell{
     width: 100%;
-    height: 56px;         /* 高さ固定 */
+    height: 64px;         /* ← 56px → 64px（タップしやすく） */
     border-radius: 14px;
     border: none;
     background: #111;
@@ -40,16 +40,16 @@
     line-height: 1;
     padding: 0;
     touch-action: manipulation;
-    overflow: hidden;     /* 念のため */
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: clip;
   }
   button.cell:active { transform: scale(0.99); opacity: .92; }
 
-  /* 合計セルはボタンじゃなく表示だけにする（見やすい） */
+  /* 合計セル（表示専用） */
   .sumBox{
     width: 100%;
-    height: 56px;
+    height: 64px;         /* ボタンと同じ高さ */
     border-radius: 14px;
     background: #f1f2f4;
     display: flex;
