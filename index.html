@@ -5,65 +5,112 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>レビュシートカウンター</title>
 <style>
-  body { font-family: -apple-system, system-ui; margin: 18px; background:#f6f7f9; }
-  h1 { font-size: 20px; margin: 0 0 10px; }
+body{
+  font-family:-apple-system,system-ui;
+  margin:18px;
+  background:#f6f7f9;
+}
+h1{
+  font-size:22px;
+  margin:0 0 12px;
+}
+select{
+  padding:10px 14px;
+  border-radius:10px;
+  font-size:16px;
+  margin-bottom:16px;
+}
 
-  select { padding: 8px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 12px; }
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  max-width:720px;
+  margin:0 auto;
+}
 
-  .card { background:#fff; padding:16px; border-radius:16px; box-shadow:0 6px 18px rgba(0,0,0,.08); }
+table{
+  width:100%;
+  max-width:640px;
+  margin:0 auto;
+  table-layout:fixed;
+  border-collapse:separate;
+  border-spacing:14px;
+}
 
-  /* ✅ 列幅固定で、数字が増えても横に伸びない */
-  table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 10px; }
+th{
+  font-size:14px;
+  font-weight:900;
+  text-align:center;
+}
 
-  th { font-size: 13px; font-weight: 800; color:#333; }
+.rowlbl{
+  text-align:left;
+  font-weight:900;
+  white-space:nowrap;
+  width:80px;
+}
 
-  /* ✅ 主菜/副菜の文字が折り返されない（幅を少し縮めてボタン幅を確保） */
-  .rowlbl {
-    text-align: left;
-    font-weight: 900;
-    white-space: nowrap;
-    width: 72px;          /* ← 84px → 72px */
-  }
+.starcol,
+.sumcol{
+  width:calc((100% - 80px) / 6);
+}
 
-  /* 星の列と合計列も幅固定（端末に合わせて自動で均等配分される） */
-  .starcol, .sumcol { width: calc((100% - 72px) / 6); }
+button.cell{
+  width:100%;
+  aspect-ratio:1 / 1;
+  border-radius:20px;
+  border:none;
+  background:#000;
+  color:#fff;
+  font-size:22px;
+  font-weight:900;
+  padding:0;
+  touch-action:manipulation;
+}
 
-  button.cell{
-    width: 100%;
-    height: 64px;         /* ← 56px → 64px（タップしやすく） */
-    border-radius: 14px;
-    border: none;
-    background: #111;
-    color: #fff;
-    font-size: 20px;
-    font-weight: 900;
-    line-height: 1;
-    padding: 0;
-    touch-action: manipulation;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: clip;
-  }
-  button.cell:active { transform: scale(0.99); opacity: .92; }
+button.cell:active{
+  transform:scale(.97);
+  opacity:.9;
+}
 
-  /* 合計セル（表示専用） */
-  .sumBox{
-    width: 100%;
-    height: 64px;         /* ボタンと同じ高さ */
-    border-radius: 14px;
-    background: #f1f2f4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 900;
-    color: #111;
-  }
+.sumBox{
+  width:100%;
+  aspect-ratio:1 / 1;
+  border-radius:20px;
+  background:#e9eaec;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:900;
+  color:#000;
+}
 
-  .actions { display:flex; gap:10px; margin-top: 14px; }
-  .btn { flex:1; padding:12px; border-radius:12px; border:1px solid #ccc; font-weight: 900; background:#fff; }
-  .btn.danger { border-color:#ffb3b3; }
-  .btn:active { transform: scale(0.99); }
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+}
+
+.btn{
+  flex:1;
+  padding:14px;
+  border-radius:16px;
+  border:1px solid #ccc;
+  font-weight:900;
+  background:#fff;
+  font-size:16px;
+}
+
+.btn.danger{
+  border-color:#ffb3b3;
+}
+
+.btn:active{
+  transform:scale(.98);
+}
 </style>
 </head>
 
@@ -84,138 +131,130 @@
 </select>
 
 <div class="card">
-  <table>
-    <thead>
-      <tr>
-        <th class="rowlbl"></th>
-        <th class="starcol">★1</th>
-        <th class="starcol">★2</th>
-        <th class="starcol">★3</th>
-        <th class="starcol">★4</th>
-        <th class="starcol">★5</th>
-        <th class="sumcol">計</th>
-      </tr>
-    </thead>
-    <tbody id="grid"></tbody>
-  </table>
+<table>
+<thead>
+<tr>
+<th class="rowlbl"></th>
+<th class="starcol">★1</th>
+<th class="starcol">★2</th>
+<th class="starcol">★3</th>
+<th class="starcol">★4</th>
+<th class="starcol">★5</th>
+<th class="sumcol">計</th>
+</tr>
+</thead>
+<tbody id="grid"></tbody>
+</table>
 
-  <div class="actions">
-    <button class="btn" id="undoBtn">ひとつ戻す</button>
-    <button class="btn danger" id="resetBtn">RESET（全て0）</button>
-  </div>
+<div class="actions">
+<button class="btn" id="undoBtn">ひとつ戻す</button>
+<button class="btn danger" id="resetBtn">RESET（全て0）</button>
+</div>
 </div>
 
 <script>
-  const rows = ["主菜","副菜1","副菜2"];
-  const cols = [1,2,3,4,5];
-  const KEY  = "review_counter_v3";
+const rows=["主菜","副菜1","副菜2"];
+const cols=[1,2,3,4,5];
+const KEY="review_counter_v4";
 
-  let state = {};    // { "2/16（月）": [[...],[...],[...]] , ... }
-  let history = [];  // [{date,r,c}...]
+let state={};
+let history=[];
 
-  function getDate(){
-    return document.getElementById("dateSelect").value;
+function getDate(){
+  return document.getElementById("dateSelect").value;
+}
+
+function initDate(date){
+  if(!state[date]){
+    state[date]=Array.from({length:3},()=>Array(5).fill(0));
   }
+}
 
-  function initDate(date){
-    if(!state[date]){
-      state[date] = Array.from({length: 3}, () => Array(5).fill(0));
-    }
+function load(){
+  const raw=localStorage.getItem(KEY);
+  if(raw){
+    try{ state=JSON.parse(raw)||{} }catch{}
   }
+}
 
-  function load(){
-    try{
-      const raw = localStorage.getItem(KEY);
-      if(raw) state = JSON.parse(raw) || {};
-    }catch{}
-  }
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(state));
+}
 
-  function save(){
-    localStorage.setItem(KEY, JSON.stringify(state));
-  }
+function rowSum(arr){
+  return arr.reduce((a,b)=>a+Number(b||0),0);
+}
 
-  function rowSum(arr){
-    return arr.reduce((a,b)=>a + Number(b || 0), 0);
-  }
+function render(){
+  const date=getDate();
+  initDate(date);
 
-  function render(){
-    const date = getDate();
-    initDate(date);
+  const grid=document.getElementById("grid");
+  grid.innerHTML="";
 
-    const grid = document.getElementById("grid");
-    grid.innerHTML = "";
+  rows.forEach((label,r)=>{
+    const tr=document.createElement("tr");
 
-    rows.forEach((label, r) => {
-      const tr = document.createElement("tr");
+    const th=document.createElement("th");
+    th.className="rowlbl";
+    th.textContent=label;
+    tr.appendChild(th);
 
-      const th = document.createElement("th");
-      th.className = "rowlbl";
-      th.textContent = label;
-      tr.appendChild(th);
+    cols.forEach((_,c)=>{
+      const td=document.createElement("td");
+      const btn=document.createElement("button");
+      btn.className="cell";
+      btn.type="button";
+      btn.textContent=state[date][r][c];
 
-      // ★1〜★5
-      cols.forEach((_, c) => {
-        const td = document.createElement("td");
-
-        const btn = document.createElement("button");
-        btn.className = "cell";
-        btn.type = "button";
-        btn.textContent = state[date][r][c];
-
-        btn.addEventListener("click", () => {
-          state[date][r][c] += 1;
-          history.push({date, r, c});
-          if(history.length > 5000) history.shift();
-          save();
-          render();
-        });
-
-        td.appendChild(btn);
-        tr.appendChild(td);
+      btn.addEventListener("click",()=>{
+        state[date][r][c]++;
+        history.push({date,r,c});
+        if(history.length>5000)history.shift();
+        save();
+        render();
       });
 
-      // ✅ 右端の合計（計）
-      const tdSum = document.createElement("td");
-      const sum = rowSum(state[date][r]);
-
-      const sumBox = document.createElement("div");
-      sumBox.className = "sumBox";
-      sumBox.textContent = sum;
-
-      tdSum.appendChild(sumBox);
-      tr.appendChild(tdSum);
-
-      grid.appendChild(tr);
+      td.appendChild(btn);
+      tr.appendChild(td);
     });
-  }
 
-  function undo(){
-    const last = history.pop();
-    if(!last) return;
+    const tdSum=document.createElement("td");
+    const sumBox=document.createElement("div");
+    sumBox.className="sumBox";
+    sumBox.textContent=rowSum(state[date][r]);
+    tdSum.appendChild(sumBox);
+    tr.appendChild(tdSum);
 
-    const {date, r, c} = last;
-    initDate(date);
-    state[date][r][c] = Math.max(0, Number(state[date][r][c] || 0) - 1);
+    grid.appendChild(tr);
+  });
+}
 
-    save();
-    render();
-  }
+function undo(){
+  const last=history.pop();
+  if(!last)return;
 
-  function resetDay(){
-    const date = getDate();
-    if(!confirm(`${date} を全て0にします。よろしいですか？`)) return;
-
-    state[date] = Array.from({length: 3}, () => Array(5).fill(0));
-    save();
-    render();
-  }
-
-  document.getElementById("dateSelect").addEventListener("change", render);
-  document.getElementById("undoBtn").addEventListener("click", undo);
-  document.getElementById("resetBtn").addEventListener("click", resetDay);
-
-  load();
+  const {date,r,c}=last;
+  initDate(date);
+  state[date][r][c]=Math.max(0,(state[date][r][c]||0)-1);
+  save();
   render();
+}
+
+function resetDay(){
+  const date=getDate();
+  if(!confirm(`${date} を全て0にします。よろしいですか？`))return;
+  state[date]=Array.from({length:3},()=>Array(5).fill(0));
+  save();
+  render();
+}
+
+document.getElementById("dateSelect").addEventListener("change",render);
+document.getElementById("undoBtn").addEventListener("click",undo);
+document.getElementById("resetBtn").addEventListener("click",resetDay);
+
+load();
+render();
 </script>
 </body>
 </html>
