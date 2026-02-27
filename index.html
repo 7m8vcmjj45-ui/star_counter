@@ -30,11 +30,11 @@ table{
   width:100%;
   table-layout:fixed;
   border-collapse:separate;
-  border-spacing:14px;
+  border-spacing:10px;
 }
 @media (orientation:landscape){
   table{
-    max-width:720px;
+    max-width:1000px;
     margin:0 auto;
   }
 }
@@ -47,21 +47,21 @@ th{
   text-align:left;
   font-weight:900;
   white-space:nowrap;
-  padding-right:6px;
-  width:60px;
+  padding-right:4px;
+  width:40px;
 }
 .starcol,
 .sumcol{
-  width:calc((100% - 60px) / 6);
+  width:calc((100% - 40px) / 6);
 }
 button.cell{
   width:100%;
   aspect-ratio:1 / 1;
-  border-radius:22px;
+  border-radius:20px;
   border:none;
   background:#000;
   color:#fff;
-  font-size:26px;
+  font-size:28px;
   font-weight:900;
   padding:0;
 }
@@ -72,12 +72,12 @@ button.cell:active{
 .sumBox{
   width:100%;
   aspect-ratio:1 / 1;
-  border-radius:22px;
+  border-radius:20px;
   background:#e9eaec;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:26px;
+  font-size:28px;
   font-weight:900;
   color:#000;
 }
@@ -145,7 +145,7 @@ button.cell:active{
 <script>
 const rows=["主菜","副菜1","副菜2"];
 const cols=[1,2,3,4,5];
-const KEY="review_counter_v6";
+const KEY="review_counter_v7";
 
 let state={};
 let history=[];
