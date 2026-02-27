@@ -20,48 +20,40 @@ select{
   font-size:18px;
   margin-bottom:18px;
 }
-
 .card{
   background:#fff;
   padding:22px;
   border-radius:22px;
   box-shadow:0 8px 24px rgba(0,0,0,.08);
 }
-
-/* 縦画面：画面いっぱい使う */
 table{
   width:100%;
   table-layout:fixed;
   border-collapse:separate;
   border-spacing:14px;
 }
-
-/* 横画面だけ固定幅 */
 @media (orientation:landscape){
   table{
     max-width:720px;
     margin:0 auto;
   }
 }
-
 th{
   font-size:16px;
   font-weight:900;
   text-align:center;
 }
-
 .rowlbl{
   text-align:left;
   font-weight:900;
   white-space:nowrap;
-  width:90px;
+  padding-right:6px;
+  width:60px;
 }
-
 .starcol,
 .sumcol{
-  width:calc((100% - 90px) / 6);
+  width:calc((100% - 60px) / 6);
 }
-
 button.cell{
   width:100%;
   aspect-ratio:1 / 1;
@@ -73,12 +65,10 @@ button.cell{
   font-weight:900;
   padding:0;
 }
-
 button.cell:active{
   transform:scale(.96);
   opacity:.9;
 }
-
 .sumBox{
   width:100%;
   aspect-ratio:1 / 1;
@@ -91,13 +81,11 @@ button.cell:active{
   font-weight:900;
   color:#000;
 }
-
 .actions{
   display:flex;
   gap:14px;
   margin-top:20px;
 }
-
 .btn{
   flex:1;
   padding:16px;
@@ -107,11 +95,9 @@ button.cell:active{
   background:#fff;
   font-size:18px;
 }
-
 .btn.danger{
   border-color:#ffb3b3;
 }
-
 .btn:active{
   transform:scale(.97);
 }
@@ -159,7 +145,7 @@ button.cell:active{
 <script>
 const rows=["主菜","副菜1","副菜2"];
 const cols=[1,2,3,4,5];
-const KEY="review_counter_v5";
+const KEY="review_counter_v6";
 
 let state={};
 let history=[];
