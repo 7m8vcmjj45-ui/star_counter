@@ -7,39 +7,33 @@
 <style>
 body{
   font-family:-apple-system,system-ui;
-  margin:18px;
+  margin:8px;
   background:#f6f7f9;
 }
 h1{
-  font-size:24px;
-  margin:0 0 14px;
+  font-size:22px;
+  margin:0 0 10px;
 }
 select{
-  padding:12px 16px;
-  border-radius:12px;
-  font-size:18px;
-  margin-bottom:18px;
+  padding:10px 14px;
+  border-radius:10px;
+  font-size:16px;
+  margin-bottom:12px;
 }
 .card{
   background:#fff;
-  padding:22px;
-  border-radius:22px;
-  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  padding:14px;
+  border-radius:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
 table{
   width:100%;
   table-layout:fixed;
   border-collapse:separate;
-  border-spacing:10px;
-}
-@media (orientation:landscape){
-  table{
-    max-width:1000px;
-    margin:0 auto;
-  }
+  border-spacing:6px;
 }
 th{
-  font-size:16px;
+  font-size:14px;
   font-weight:900;
   text-align:center;
 }
@@ -47,65 +41,61 @@ th{
   text-align:left;
   font-weight:900;
   white-space:nowrap;
-  padding-right:4px;
-  width:40px;
+  width:34px;
+  padding-right:2px;
 }
 .starcol,
 .sumcol{
-  width:calc((100% - 40px) / 6);
+  width:calc((100% - 34px) / 6);
 }
 button.cell{
   width:100%;
   aspect-ratio:1 / 1;
-  border-radius:20px;
+  border-radius:14px;
   border:none;
   background:#000;
   color:#fff;
-  font-size:28px;
+  font-size:24px;
   font-weight:900;
   padding:0;
 }
 .sumBox{
   width:100%;
   aspect-ratio:1 / 1;
-  border-radius:20px;
+  border-radius:14px;
   background:#e9eaec;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:28px;
+  font-size:24px;
   font-weight:900;
   color:#000;
 }
-
-/* 縦画面では角を小さくする */
 @media (orientation:portrait){
   button.cell{
-    border-radius:8px;
+    border-radius:6px;
   }
   .sumBox{
-    border-radius:8px;
+    border-radius:6px;
   }
 }
-
 button.cell:active{
   transform:scale(.96);
   opacity:.9;
 }
-
 .actions{
   display:flex;
-  gap:14px;
-  margin-top:20px;
+  gap:10px;
+  margin-top:14px;
 }
 .btn{
   flex:1;
-  padding:16px;
-  border-radius:18px;
+  padding:14px;
+  border-radius:14px;
   border:1px solid #ccc;
   font-weight:900;
   background:#fff;
-  font-size:18px;
+  font-size:16px;
 }
 .btn.danger{
   border-color:#ffb3b3;
@@ -137,12 +127,12 @@ button.cell:active{
 <thead>
 <tr>
 <th class="rowlbl"></th>
-<th class="starcol">★1</th>
-<th class="starcol">★2</th>
-<th class="starcol">★3</th>
-<th class="starcol">★4</th>
-<th class="starcol">★5</th>
-<th class="sumcol">計</th>
+<th>★1</th>
+<th>★2</th>
+<th>★3</th>
+<th>★4</th>
+<th>★5</th>
+<th>計</th>
 </tr>
 </thead>
 <tbody id="grid"></tbody>
@@ -157,7 +147,7 @@ button.cell:active{
 <script>
 const rows=["主菜","副菜1","副菜2"];
 const cols=[1,2,3,4,5];
-const KEY="review_counter_v8";
+const KEY="review_counter_v9";
 
 let state={};
 let history=[];
